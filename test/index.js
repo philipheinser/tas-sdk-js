@@ -12,11 +12,19 @@ const trivago = new Trivago(opts);
 
 test('trivago hotellist', (t) => {
   return trivago.getHotelCollection(
-    new Date(),
-    moment().add(1, 'days').toDate(),
-    '46814'
+    moment().add(2, 'days').toDate(),
+    moment().add(4, 'days').toDate()
   ).then((data) => {
     t.ok(Array.isArray(data.hotels), 'hotels is array');
+  })
+  .catch((err) => {
+    t.error(err);
+  });
+});
+
+test('trivago locations', (t) => {
+  return trivago.getLocations('Berlin').then((data) => {
+    t.ok(Array.isArray(data._embedded.locations), 'locations is array');
   })
   .catch((err) => {
     t.error(err);
